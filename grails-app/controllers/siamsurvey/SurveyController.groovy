@@ -19,11 +19,22 @@ class SurveyController {
         respond surveyInstance
     }
 
+    def create(){
+        def surveyInstance = new Survey()
+        respond surveyInstance
+    }
+
+    def save(Survey surveyInstance){
+
+        if(!surveyInstance.validate()){
+            respond surveyInstance.errors, view:'create'
+        }
+
+
+    }
 
  /*
-    def create() {
-        respond new Survey(params)
-    }
+    
 
     @Transactional
     def save(Survey surveyInstance) {

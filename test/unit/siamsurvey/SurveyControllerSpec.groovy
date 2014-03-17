@@ -52,23 +52,22 @@ class SurveyControllerSpec extends Specification {
 
         then:"The model is correctly created"
             model.surveyInstance!= null
+
     }
 
-
-
-
-/*
-    void "Test the save action correctly persists an instance"() {
+    void "Save action correctly persists an instance"() {
 
         when:"The save action is executed with an invalid instance"
             def survey = new Survey()
-            survey.validate()
             controller.save(survey)
 
         then:"The create view is rendered again with the correct model"
             model.surveyInstance!= null
             view == 'create'
 
+        and:"The save action is errored and rendered create again must show errors."
+            model.surveyInstance.errors != null
+/*
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
@@ -80,9 +79,10 @@ class SurveyControllerSpec extends Specification {
             response.redirectedUrl == '/survey/show/1'
             controller.flash.message != null
             Survey.count() == 1
+    */
     }
 
-
+/*
     void "Test that the edit action returns the correct model"() {
         when:"The edit action is executed with a null domain"
             controller.edit(null)
