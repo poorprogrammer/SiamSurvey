@@ -55,32 +55,33 @@ class SurveyControllerSpec extends Specification {
 
     }
 
-    void "Save action correctly persists an instance"() {
-
-        when:"The save action is executed with an invalid instance"
+    void "Save action should redirect create page and show errors if it try to save invalid domain"(){
+        when:"save action try to save domain without name"
             def survey = new Survey()
             controller.save(survey)
 
-        then:"The create view is rendered again with the correct model"
-            model.surveyInstance!= null
+        then:"should redirect create page and show errors" 
             view == 'create'
-
-        and:"The save action is errored and rendered create again must show errors."
             model.surveyInstance.errors != null
-/*
+        }
+
+    void "Save action correctly persists an instance"() {
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            survey = new Survey(params)
-
+            def survey = new Survey(params)
             controller.save(survey)
 
         then:"A redirect is issued to the show action"
             response.redirectedUrl == '/survey/show/1'
             controller.flash.message != null
             Survey.count() == 1
-    */
+    
     }
+
+
+
+
 
 /*
     void "Test that the edit action returns the correct model"() {

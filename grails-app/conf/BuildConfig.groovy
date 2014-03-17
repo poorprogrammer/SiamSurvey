@@ -32,6 +32,14 @@ grails.project.dependency.resolution = {
 	checksums true // Whether to verify checksums on resolve
 	legacyResolve false // whether to do a secondary resolve on plugin installation, not advised and here for backwards compatibility
 
+
+
+	
+
+    def gebVersion = "0.9.2"
+	def phantomJSVersion = "1.0.4"
+	def webdriverVersion = "2.40.0"
+
 	repositories {
 		inherits true // Whether to inherit repository definitions from plugins
 
@@ -44,14 +52,28 @@ grails.project.dependency.resolution = {
 		//mavenRepo "http://repository.codehaus.org"
 		//mavenRepo "http://download.java.net/maven/2/"
 		//mavenRepo "http://repository.jboss.com/maven2/"
+		// For Geb snapshot
+        mavenRepo "http://oss.sonatype.org/content/repositories/snapshots"
 	}
 
 	dependencies {
 		// specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 		// runtime 'mysql:mysql-connector-java:5.1.27'
 		// runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
+		
+		// for spock
 		test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
 		
+		// for Geb
+		test "org.gebish:geb-spock:${gebVersion}"
+
+        test "org.seleniumhq.selenium:selenium-support:${webdriverVersion}"
+        test "org.seleniumhq.selenium:selenium-chrome-driver:${webdriverVersion}"
+        test "org.seleniumhq.selenium:selenium-firefox-driver:${webdriverVersion}"
+        test "org.seleniumhq.selenium:selenium-ie-driver:${webdriverVersion}"
+		test("com.github.detro.ghostdriver:phantomjsdriver:${phantomJSVersion}") {
+            transitive = false
+        }
 
 	}
 
@@ -75,7 +97,12 @@ grails.project.dependency.resolution = {
 		//runtime ":yui-minify-resources:0.1.5"
 
 		compile ":code-coverage:1.2.7"
-		test(":spock:0.7") { exclude "spock-grails-support" }
 		
+		// test plugins
+		test(":spock:0.7") { exclude "spock-grails-support" }
+		test ":remote-control:1.4"
+        test ":geb:${gebVersion}"
+
+
 	}
 }

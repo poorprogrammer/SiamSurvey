@@ -24,13 +24,17 @@ class SurveyController {
         respond surveyInstance
     }
 
+    @Transactional
     def save(Survey surveyInstance){
 
         if(!surveyInstance.validate()){
             respond surveyInstance.errors, view:'create'
+            
         }
-
-
+        surveyInstance.save flush:true
+        flash.message = message(code: 'default.created.message', args: [message(code: 'surveyInstance.label', default: 'Survey'), surveyInstance.id])
+        redirect action:'show', id:surveyInstance.id
+        
     }
 
  /*
