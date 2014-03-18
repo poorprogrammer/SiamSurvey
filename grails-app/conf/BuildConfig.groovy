@@ -62,7 +62,7 @@ grails.project.dependency.resolution = {
 		// runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
 		
 		// for spock
-		test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
+		//test "org.spockframework:spock-grails-support:0.7-groovy-2.0"
 		
 		// for Geb
 		test "org.gebish:geb-spock:${gebVersion}"
@@ -99,7 +99,7 @@ grails.project.dependency.resolution = {
 		compile ":code-coverage:1.2.7"
 		
 		// test plugins
-		test(":spock:0.7") { exclude "spock-grails-support" }
+		//test(":spock:0.7") { exclude "spock-grails-support" }
 		test ":remote-control:1.4"
         test ":geb:${gebVersion}"
 
