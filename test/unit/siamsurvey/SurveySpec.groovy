@@ -16,7 +16,7 @@ class SurveySpec extends Specification {
 	def cleanup() {
 	}
 
-	def "survey must have a name, it cannot be blank or null"(){ 
+	def "Murvey must have a name, it must not be blank or null value"(){ 
 		when:
 			def survey = new Survey(name:surveyName);
 			

@@ -1,6 +1,6 @@
 package siamsurvey
 
-import grails.test.mixin.TestFor
+import grails.test.mixin.*
 import spock.lang.Specification
 
 /**
@@ -10,28 +10,25 @@ import spock.lang.Specification
 @Mock(Survey)
 class SurveyServiceSpec extends Specification {
 
-    	def params = [:]
+	def params = [:]
 	def populateValidParams(params) {
-        
-     	assert params != null
-        // TODO: Populate valid properties like...
-        params["name"] = 'Yamaha Survey'
-    }
 
-    def setup() {
-    }
+		assert params != null
+		params["name"] = 'Yamaha Survey'
+	}
 
-    def cleanup() {
-    }
+	def setup() {
+	}
 
-    void "test create Survey via Survey service"() {
-    	when: "try to save survey through service"
-    		populateValidParams(params)
-    		service.createSurvey(params)
+	def cleanup() {
+	}
 
-    	then: "should have data persisted to data store"
-    		Survey.count() == 1 
+	void "test create Survey via Survey service"() {
+		when: "try to save survey through service"
+		populateValidParams(params)
+		service.createSurvey(params)
 
-
-    }
+		then: "should have data persisted to data store"
+		Survey.count() == 1
+	}
 }

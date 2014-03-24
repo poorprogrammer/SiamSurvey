@@ -1,11 +1,12 @@
 package siamsurvey
 
 class Survey {
-
-	
 	String name
-    static constraints = {
-    	
+	String objective
+	
+	static constraints = {
+    	name()
+		objective nullable:true, blank:true 
     }
 
 }
