@@ -8,11 +8,14 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class SurveyController {
 
+	def surveyService
+		
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Survey.list(params), model:[surveyInstanceCount: Survey.count()]
+        params.max = Math.min(max ?: 20, 100)
+        def surveys = surveyService.listSurvey(params.max)
+		respond surveys, model:[surveyInstanceCount: surveys.getTotalCount()]
     }
 
     def show(Survey surveyInstance) {
@@ -26,15 +29,12 @@ class SurveyController {
 
     @Transactional
     def save(Survey surveyInstance){
-
         if(!surveyInstance.validate()){
             respond surveyInstance.errors, view:'create'
-            
         }
         surveyInstance.save flush:true
         flash.message = message(code: 'default.created.message', args: [message(code: 'surveyInstance.label', default: 'Survey'), surveyInstance.id])
         redirect action:'show', id:surveyInstance.id
-        
     }
 
  /*
