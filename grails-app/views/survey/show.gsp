@@ -27,7 +27,7 @@
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="survey.name.label" default="Name" /></span>
 					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${surveyInstance}" field="name"/></span>
+						<span class="property-value" aria-labelledby="name-label" id="surveyName"><g:fieldValue bean="${surveyInstance}" field="name"/></span>
 					
 				</li>
 				</g:if>

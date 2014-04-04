@@ -1,3 +1,4 @@
+package siamsurvey
 /*
 	This is the Geb configuration file.
 	
