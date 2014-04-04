@@ -75,6 +75,8 @@ grails.project.dependency.resolution = {
             transitive = false
         }
 
+		
+		
 	}
 
 	plugins {
@@ -102,6 +104,8 @@ grails.project.dependency.resolution = {
 		//test(":spock:0.7") { exclude "spock-grails-support" }
 		test ":remote-control:1.4"
         test ":geb:${gebVersion}"
+		
+		compile ":kickstart-with-bootstrap:1.1.0"
 
 
 	}
