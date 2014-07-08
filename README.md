@@ -5,7 +5,7 @@ Siam Survey, one of the Share Square' projects, is an online survey system. It i
 Core Framework-:
 - Grails 2.3.5 (at started).
 
-Plugins-:
+Testing Framework-:
 - Spock Framework for Test Driven Developement and Speccification.
 - Geb Framework for functional test
 
