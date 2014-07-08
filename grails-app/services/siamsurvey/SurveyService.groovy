@@ -6,9 +6,16 @@ import grails.transaction.Transactional
 class SurveyService {
 
     def createSurvey(params) {
-    	new Survey(params).save flush:true
+		def survey = new Survey(params)
+		if(survey.validate()){
+			survey.save flush:true
+		}
+    	
+		 
     }
 	
+	
+	@Transactional(readOnly = true)
 	def listSurvey(max) {
 		if(max == null){
 			max = 20

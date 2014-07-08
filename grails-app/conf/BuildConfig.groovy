@@ -106,7 +106,8 @@ grails.project.dependency.resolution = {
         test ":geb:${gebVersion}"
 		
 		compile ":kickstart-with-bootstrap:1.1.0"
-
+		
+		compile ':mongodb:2.0.1'
 
 	}
 }
