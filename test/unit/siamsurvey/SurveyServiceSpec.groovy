@@ -13,15 +13,9 @@ class SurveyServiceSpec extends Specification {
 
 	def params = [:]
 	def populateValidParams(params) {
-
 		assert params != null
-		params["name"] = 'Yamaha Survey'
-	}
-
-	def setup() {
-	}
-
-	def cleanup() {
+		params["thaiName"] = 'Survey Thai Name'
+		
 	}
 
 	void "test create Survey via Survey service"() {
@@ -45,7 +39,7 @@ class SurveyServiceSpec extends Specification {
 
 	void "Should return 1 survey if there is one survey in the datastore."(){
 		when: "There is survey in the datastore"
-		def survey = new Survey(name:"TestName",objective:"obj...")
+		def survey = new Survey(thaiName:"TestName",objective:"obj...")
 		survey.save()
 		and: "execute listSurvey in service"
 		def surveys = service.listSurvey()
@@ -57,7 +51,7 @@ class SurveyServiceSpec extends Specification {
 
 	void "Should return 2 surveys if there is two surveys in the datastore."(){
 		when: "There are 2 survey in the datastore"
-		2.times {new Survey(name:"Yamaha").save(flush:true)}
+		2.times {new Survey(thaiName:"Yamaha").save(flush:true)}
 		and: "execute listSurvey in service"
 		def surveys = service.listSurvey()
 		then: "should not be null"
@@ -69,7 +63,7 @@ class SurveyServiceSpec extends Specification {
 	void "Should return all surveys"(){
 		given:"There are 20 surveys in the datastore."
 		20.times{index->
-			new Survey(name:"Survey : $index").save(flush:true)
+			new Survey(thaiName:"Survey : $index").save(flush:true)
 		}
 		when: "execute listSurvey action"
 		def surveys = service.listSurvey()
@@ -80,7 +74,7 @@ class SurveyServiceSpec extends Specification {
 	void "Should return all surveys but not 20 surveys at a time"(){
 		given:"There are 21 surveys in the datastore."
 		21.times{index->
-			new Survey(name:"Survey : $index").save(flush:true)
+			new Survey(thaiName:"Survey : $index").save(flush:true)
 		}
 		when: "execute listSurvey action without params"
 		def surveys = service.listSurvey()
@@ -93,7 +87,7 @@ class SurveyServiceSpec extends Specification {
 	void "Should return NUMBER surveys but not 20 surveys at a time"(){
 		given:"There are 30 surveys in the datastore."
 		30.times{index->
-			new Survey(name:"Survey : $index").save(flush:true)
+			new Survey(thaiName:"Survey : $index").save(flush:true)
 		}
 		when: "execute listSurvey action 5 parameter "
 		def surveys = service.listSurvey(5)
@@ -110,5 +104,25 @@ class SurveyServiceSpec extends Specification {
 		surveys.getTotalCount() == 30
 		
 	}
+	
+	void "Should add quesions to survey"(){
+		given:
+			mockDomains(QuestionGroup,QuestionType,Question);
+			populateValidParams(params);
+			def questionTypeq = new QuestionType(typeText:"Simple").save flush:true;
+			def questionGroup = new QuestionGroup(thaiName:"Group Name").save flush:true;
+			def question1 = new Question(thaiName:"name1",questionType:questionTypeq,questionGroup:questionGroup);
+			def question2 = new Question(thaiName:"name2",questionType:questionTypeq,questionGroup:questionGroup);
+			def questions = [question1,question2];
+			params.questions = questions;
+		
+		when:
+			service.createSurvey(params);
+		
+		then:
+			Survey.count() == 1
+			println(service.listSurvey().get(0));
+	}
+	
 	
 }
